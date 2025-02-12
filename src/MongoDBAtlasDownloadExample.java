@@ -25,6 +25,7 @@ public class MongoDBAtlasDownloadExample {
                 }
             }
 
+
             // Skriver ut alla filmer
             for (Movie movie : movieList) {
                 System.out.println(movie);
@@ -32,6 +33,9 @@ public class MongoDBAtlasDownloadExample {
 
             //Här gör du anrop till alla dina funktioner som ska skriva ut svaren på frågorna som
             //efterfrågas i uppgiften
+
+            System.out.println("Number of movies 1975: " + movieList.size());
+
 
 
         } catch (Exception e) {
