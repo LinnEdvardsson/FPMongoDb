@@ -10,7 +10,7 @@ public class MongoDBAtlasDownloadExample {
     public MongoDBAtlasDownloadExample() {
 
         //Skriv in rätt uri!
-        String uri = "mongodb+srv://linnedvardsson:bulle123@Cluster0.mongodb.net/?retryWrites=true&w=majority";
+        String uri = "mongodb+srv://linnedvardsson:bulle123@cluster0.kh0oq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
