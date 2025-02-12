@@ -7,9 +7,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="bson-5.3.1" level="project" />
-    <orderEntry type="library" name="mongodb-driver-sync-5.3.1" level="project" />
-    <orderEntry type="library" name="slf4j-api-2.1.0-alpha1" level="project" />
-    <orderEntry type="library" name="mongodb-driver-core-5.3.1" level="project" />
+    <orderEntry type="library" exported="" name="bson-5.3.1" level="project" />
+    <orderEntry type="library" exported="" name="mongodb-driver-sync-5.3.1" level="project" />
+    <orderEntry type="library" exported="" name="mongodb-driver-core-5.3.1" level="project" />
+    <orderEntry type="library" exported="" name="slf4j-api-2.0.0" level="project" />
+    <orderEntry type="library" exported="" name="slf4j-simple-2.0.7" level="project" />
   </component>
 </module>
