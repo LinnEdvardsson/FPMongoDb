@@ -20,7 +20,7 @@ public class MongoClientConnection {
             .serverApi(serverApi)
             .build();
     // Create a new client and connect to the server
-        try (MongoClient mongoClient = MongoClients.create(settings); {
+        try (MongoClient mongoClient = MongoClients.create(settings)){
         try {
             // Send a ping to confirm a successful connection
             MongoDatabase database = mongoClient.getDatabase("admin");
