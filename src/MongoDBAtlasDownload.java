@@ -4,10 +4,10 @@ import org.bson.Document;
 import java.util.ArrayList;
 import java.util.List;
 
+//"mongodb+srv://linnedvardsson:bulle123@cluster0.kh0oq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+public class MongoDBAtlasDownload {
 
-public class MongoDBAtlasDownloadExample {
-
-    public MongoDBAtlasDownloadExample() {
+    public MongoDBAtlasDownload() {
 
         //Skriv in rätt uri!
         String uri = "mongodb+srv://linnedvardsson:bulle123@cluster0.kh0oq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
@@ -27,14 +27,15 @@ public class MongoDBAtlasDownloadExample {
 
 
             // Skriver ut alla filmer
-            for (Movie movie : movieList) {
-                System.out.println(movie);
-            }
+//            for (Movie movie : movieList) {
+//                System.out.println(movie);
+//            }
 
             //Här gör du anrop till alla dina funktioner som ska skriva ut svaren på frågorna som
             //efterfrågas i uppgiften
 
-            System.out.println("Number of movies 1975: " + movieList.size());
+//            System.out.println(getNumbOfMovies(movieList));
+            getAllQuestions(movieList);
 
 
 
@@ -43,7 +44,17 @@ public class MongoDBAtlasDownloadExample {
         }
     }
 
+    public void getAllQuestions(List<Movie> movieList) {
+        System.out.println(getNumbOfMovies(movieList));
+    }
+
+    /// Filtrerar filmer i listan på filmer från 1975, omvandlar varje match till 1 för att summera alla.
+    public int getNumbOfMovies(List <Movie> movies ) {
+        return movies.stream().filter(movie -> movie.getYear() == 1975).mapToInt(movie -> 1).sum();
+    }
+
+
     public static void main(String[] args) {
-        MongoDBAtlasDownloadExample m = new MongoDBAtlasDownloadExample();
+        MongoDBAtlasDownload m = new MongoDBAtlasDownload();
     }
 }
