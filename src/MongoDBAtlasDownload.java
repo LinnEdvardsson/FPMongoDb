@@ -47,19 +47,27 @@ public class MongoDBAtlasDownload {
     public void getAllQuestions(List<Movie> movieList) {
         System.out.println("Number of movies from 1975: " + getNumbOfMovies(movieList));
         System.out.println("Longest movie was: " + getLongestMovie(movieList));
+        System.out.println("Unique genres: " + getUniqueGenres(movieList));
     }
 
     /// Hur många filmer gjordes 1975 (enligt vårt data). Returnera ett tal
     /// Filtrerar filmer i listan på filmer från 1975, omvandlar varje match till 1 för att summera alla.
-    public int getNumbOfMovies(List <Movie> movies ) {
-        return movies.stream().filter(movie -> movie.getYear() == 1975).mapToInt(movie -> 1).sum();
+    public long getNumbOfMovies(List<Movie> movieList) {
+        return movieList.stream().filter(movie -> movie.getYear() == 1975).count();
     }
 
     /// Hitta längden på den film som var längst (högst runtime). Returnera ett tal.
-    /// Mappar lista på runtime och mappar till interger för att hämta maxvärde.
-    public double getLongestMovie(List<Movie> movies) {
-        return movies.stream().map(Movie::getRuntime).mapToInt(Integer::intValue).max().orElse(0);
+    /// Mappar lista på runtime och tar ut int-elementen med mappning r för att hämta maxvärde.
+    public int getLongestMovie(List<Movie> movieList) {
+        return movieList.stream().mapToInt(Movie::getRuntime).max().orElse(0);
     }
+
+    /// Hur många UNIKA genrer hade filmerna från 1975. Returnera ett tal. FEL????
+    public long getUniqueGenres(List<Movie> movieList) {
+        return movieList.stream().flatMap(x -> x.getGenres().stream()).distinct().count();
+    }
+
+
 
 
     public static void main(String[] args) {
