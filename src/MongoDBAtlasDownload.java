@@ -6,6 +6,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static java.util.Locale.filter;
+import static java.util.Locale.forLanguageTag;
 
 //"mongodb+srv://linnedvardsson:bulle123@cluster0.kh0oq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 public class MongoDBAtlasDownload {
@@ -53,7 +54,8 @@ public class MongoDBAtlasDownload {
 //        System.out.println("Unique genres: " + getUniqueGenres(movieList));
 //        System.out.println("Actors in highest rated movie is: " + getActors(movieList));
 //        System.out.println("Least number of actors in movie: " + getLeastActors(movieList));
-        System.out.println("Number of actors in more than 1 movie: " + actorsInMovies(movieList));
+//        System.out.println("Number of actors in more than 1 movie: " + actorsInMovies(movieList));
+        System.out.println("Pop actor: " + getMostPopularActor(movieList));
     }
 
     // Hur många filmer gjordes 1975 (enligt vårt data). Returnera ett tal
@@ -73,7 +75,7 @@ public class MongoDBAtlasDownload {
         return movieList.stream().flatMap(x -> x.getGenres().stream()).distinct().count();
     }
 
-    //Vilka skådisar som spelade i den film som hade högst imdb-rating. Returnera en List<String> med deras namn.
+    //Vilka skådisar som spelade i den film som hade högst imdb-rating. Returnera en List<String> med deras namn.(KAN VARA FLERA)
     /// Lägger in rating i en comparing som jämför objekten Movie baserat på rating. Sätter den i max för att returnera högsta värdet med skådespelare.
     public List<String> getActors(List<Movie> movieList) {
         Comparator<Movie> movieComparator = Comparator.comparing(Movie::getImdbRating);
@@ -84,14 +86,21 @@ public class MongoDBAtlasDownload {
     //Vad är titeln på den film som hade minst antal skådisar listade? Returnera en String
     public String getLeastActors(List<Movie> movieList) {
         Comparator<Movie> compActor = Comparator.comparing(x -> x.getCast().size());
-        return String.valueOf(movieList.stream().min(compActor).map(Movie::getTitle).orElse(null));
+        return movieList.stream().min(compActor).map(Movie::getTitle).orElse(null);
     }
 
     //Hur många skådisar var med i mer än 1 film? Returnera ett tal.
     /// lägger resultat i hashmap för att ge nyckel (actor) och värde (förekommer antal ggr). Går igenom listan och filtrerar på värden och summerar hur många gånger man förekommer.
     public int actorsInMovies(List<Movie> movieList) {
-       Map<String, Long> acc =  movieList.stream().flatMap(m-> m.getCast().stream()).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
-        return acc.entrySet().stream().filter(e->e.getValue() > 1).mapToInt(e -> 1).sum();
+        Map<String, Long> acc = movieList.stream().flatMap(m -> m.getCast().stream()).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
+        return acc.entrySet().stream().filter(e -> e.getValue() > 1).mapToInt(e -> 1).sum();
+    }
+
+    //Vad hette den skådis som var med i flest filmer? Returnera en String ("Gene Hackman")
+    /// samma comparing som ovan, men i return nu jämför values i mappen, och det högsta values hämtas nyckeln för.
+    public String getMostPopularActor(List<Movie> movieList) {
+        Map<String, Long> pop = movieList.stream().flatMap(m -> m.getCast().stream()).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
+        return pop.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
     }
 
 
