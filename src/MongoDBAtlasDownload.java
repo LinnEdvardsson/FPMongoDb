@@ -2,7 +2,10 @@ import com.mongodb.client.*;
 import org.bson.Document;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 //"mongodb+srv://linnedvardsson:bulle123@cluster0.kh0oq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 public class MongoDBAtlasDownload {
@@ -48,24 +51,34 @@ public class MongoDBAtlasDownload {
         System.out.println("Number of movies from 1975: " + getNumbOfMovies(movieList));
         System.out.println("Longest movie was: " + getLongestMovie(movieList));
         System.out.println("Unique genres: " + getUniqueGenres(movieList));
+        System.out.println("Actors in highest rated movie is: " + getActors(movieList));
     }
 
-    /// Hur många filmer gjordes 1975 (enligt vårt data). Returnera ett tal
-    /// Filtrerar filmer i listan på filmer från 1975, omvandlar varje match till 1 för att summera alla.
+    // Hur många filmer gjordes 1975 (enligt vårt data). Returnera ett tal
+    // Filtrerar filmer i listan på filmer från 1975, omvandlar varje match till 1 för att summera alla.
     public long getNumbOfMovies(List<Movie> movieList) {
         return movieList.stream().filter(movie -> movie.getYear() == 1975).count();
     }
 
-    /// Hitta längden på den film som var längst (högst runtime). Returnera ett tal.
-    /// Mappar lista på runtime och tar ut int-elementen med mappning r för att hämta maxvärde.
+    // Hitta längden på den film som var längst (högst runtime). Returnera ett tal.
+    // Mappar lista på runtime och tar ut int-elementen med mappning r för att hämta maxvärde.
     public int getLongestMovie(List<Movie> movieList) {
         return movieList.stream().mapToInt(Movie::getRuntime).max().orElse(0);
     }
 
-    /// Hur många UNIKA genrer hade filmerna från 1975. Returnera ett tal. FEL????
+    // Hur många UNIKA genrer hade filmerna från 1975. Returnera ett tal. FEL????
     public long getUniqueGenres(List<Movie> movieList) {
         return movieList.stream().flatMap(x -> x.getGenres().stream()).distinct().count();
     }
+
+    //Vilka skådisar som spelade i den film som hade högst imdb-rating. Returnera en List<String> med deras namn.
+    /// Lägger in rating i en comparing som jämför objekten Movie baserat på rating. Sätter den i max för att returnera högsta värdet med skådespelare.
+    public List<String> getActors(List<Movie> movieList) {
+        Comparator<Movie> movieComparator = Comparator.comparing(Movie::getImdbRating);
+        return movieList.stream().max(movieComparator).map(Movie::getCast).orElse(Collections.emptyList());
+
+    }
+
 
 
 
