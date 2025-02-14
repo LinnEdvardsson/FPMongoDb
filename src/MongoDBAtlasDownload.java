@@ -1,11 +1,11 @@
 import com.mongodb.client.*;
 import org.bson.Document;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
+
+import static java.util.Locale.filter;
 
 //"mongodb+srv://linnedvardsson:bulle123@cluster0.kh0oq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 public class MongoDBAtlasDownload {
@@ -48,11 +48,12 @@ public class MongoDBAtlasDownload {
     }
 
     public void getAllQuestions(List<Movie> movieList) {
-        System.out.println("Number of movies from 1975: " + getNumbOfMovies(movieList));
-        System.out.println("Longest movie was: " + getLongestMovie(movieList));
-        System.out.println("Unique genres: " + getUniqueGenres(movieList));
-        System.out.println("Actors in highest rated movie is: " + getActors(movieList));
-        System.out.println("Least number of actors in movie: " + getLeastActors(movieList));
+//        System.out.println("Number of movies from 1975: " + getNumbOfMovies(movieList));
+//        System.out.println("Longest movie was: " + getLongestMovie(movieList));
+//        System.out.println("Unique genres: " + getUniqueGenres(movieList));
+//        System.out.println("Actors in highest rated movie is: " + getActors(movieList));
+//        System.out.println("Least number of actors in movie: " + getLeastActors(movieList));
+        System.out.println("Number of actors in more than 1 movie: " + actorsInMovies(movieList));
     }
 
     // Hur många filmer gjordes 1975 (enligt vårt data). Returnera ett tal
@@ -86,7 +87,12 @@ public class MongoDBAtlasDownload {
         return String.valueOf(movieList.stream().min(compActor).map(Movie::getTitle).orElse(null));
     }
 
-
+    //Hur många skådisar var med i mer än 1 film? Returnera ett tal.
+    /// lägger resultat i hashmap för att ge nyckel (actor) och värde (förekommer antal ggr). Går igenom listan och filtrerar på värden och summerar hur många gånger man förekommer.
+    public int actorsInMovies(List<Movie> movieList) {
+       Map<String, Long> acc =  movieList.stream().flatMap(m-> m.getCast().stream()).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
+        return acc.entrySet().stream().filter(e->e.getValue() > 1).mapToInt(e -> 1).sum();
+    }
 
 
 
