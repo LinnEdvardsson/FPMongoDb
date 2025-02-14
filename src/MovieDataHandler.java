@@ -1,26 +1,62 @@
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.stream.IntStream;
-//
-//public class MovieDataHandler {
-//
-//     List <Movie> movies;
-//
-//    public MovieDataHandler(List <Movie> movies) {
-//       this.movies = movies;
-//    }
-//
-//    /// Fråga ett: Hur många filmer gjordes 1975 (enligt vårt data). Returnera ett tal
-//    /// Filtrerar filmer i listan på filmer från 1975, omvandlar varje match till 1 för att summera alla.
-//    public int getNumbOfMovies(List <Movie> movies ) {
-//        return movies.stream().filter(movie -> movie.getYear() == 1975).mapToInt(movie -> 1).sum();
-//    }
-//
-//    // movies.stream().mapToInt(Integer::valueOf).summaryStatistics().getCount();
-//
-//    public static void main(String[] args) {
-//       // MovieDataHandler handler = new MovieDataHandler();
-//        MovieDataHandler handler = new MovieDataHandler();
-//
-//    }
-// }
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class MovieDataHandler {
+
+
+    /// Filtrerar filmer i listan på filmer från 1975, omvandlar varje match till 1 för att summera alla.
+    public long getNumbOfMovies(List<Movie> movieList) {
+        return movieList.stream().filter(movie -> movie.getYear() == 1975).count();
+    }
+
+
+    /// Mappar lista på runtime och tar ut int-elementen med mappning r för att hämta maxvärde.
+    public int getLongestMovie(List<Movie> movieList) {
+        return movieList.stream().mapToInt(Movie::getRuntime).max().orElse(0);
+    }
+
+    // Hur många UNIKA genrer hade filmerna från 1975. Returnera ett tal. FEL????
+    public long getUniqueGenres(List<Movie> movieList) {
+        return movieList.stream().flatMap(x -> x.getGenres().stream()).distinct().count();
+    }
+
+
+    /// Lägger in rating i en comparing som jämför objekten Movie baserat på rating. Sätter den i max för att returnera högsta värdet med skådespelare.
+    public List<String> getActors(List<Movie> movieList) {
+        Comparator<Movie> movieComparator = Comparator.comparing(Movie::getImdbRating);
+        return movieList.stream().max(movieComparator).map(Movie::getCast).orElse(Collections.emptyList());
+
+    }
+
+
+    public String getLeastActors(List<Movie> movieList) {
+        Comparator<Movie> compActor = Comparator.comparing(x -> x.getCast().size());
+        return movieList.stream().min(compActor).map(Movie::getTitle).orElse(null);
+    }
+
+
+    /// lägger resultat i hashmap för att ge nyckel (actor) och värde (förekommer antal ggr). Går igenom listan och filtrerar på värden och summerar hur många gånger man förekommer.
+    public int actorsInMovies(List<Movie> movieList) {
+        Map<String, Long> acc = movieList.stream().flatMap(m -> m.getCast().stream()).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
+        return acc.entrySet().stream().filter(e -> e.getValue() > 1).mapToInt(e -> 1).sum();
+    }
+
+
+    /// samma comparing som ovan, men i return nu jämför values i mappen, och det högsta values hämtas nyckeln för.
+    public String getMostPopularActor(List<Movie> movieList) {
+        Map<String, Long> pop = movieList.stream().flatMap(m -> m.getCast().stream()).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
+        return pop.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
+    }
+
+    public long getUniquelanguage(List<Movie> movieList) {
+        return movieList.stream().flatMap(x -> x.getLanguages().stream()).distinct().count();
+    }
+
+    public boolean getMulitMovieTitle(List<Movie> movieList) {
+        Map<String, Long> movieTitles = movieList.stream().map(Movie::getTitle).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
+        return movieTitles.entrySet().stream().anyMatch(e -> e.getValue() > 1);
+    }
+}
+
+
