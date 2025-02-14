@@ -57,6 +57,7 @@ public class MongoDBAtlasDownload {
         System.out.println("Number of actors in more than 1 movie: " + actorsInMovies(movieList));
         System.out.println("Pop actor: " + getMostPopularActor(movieList));
         System.out.println("Number of unique languages: " + getUniquelanguage(movieList));
+        System.out.println("Movie title belongs to several movies: " + getMulitMovieTitle(movieList));
     }
 
     // Hur många filmer gjordes 1975 (enligt vårt data). Returnera ett tal
@@ -106,6 +107,11 @@ public class MongoDBAtlasDownload {
 
     public long getUniquelanguage(List<Movie> movieList) {
         return movieList.stream().flatMap(x -> x.getLanguages().stream()).distinct().count();
+    }
+
+    public boolean getMulitMovieTitle(List<Movie> movieList) {
+        Map<String, Long> movieTitles = movieList.stream().map(Movie::getTitle).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
+        return movieTitles.entrySet().stream().anyMatch(e -> e.getValue() > 1);
     }
 
 
