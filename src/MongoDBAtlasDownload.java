@@ -50,12 +50,13 @@ public class MongoDBAtlasDownload {
 
     public void getAllQuestions(List<Movie> movieList) {
         System.out.println("Number of movies from 1975: " + getNumbOfMovies(movieList));
-        System.out.println("Longest movie was: " + getLongestMovie(movieList));
+        System.out.println("Longest movie was: " + getLongestMovie(movieList) + " minutes");
         System.out.println("Unique genres: " + getUniqueGenres(movieList));
         System.out.println("Actors in highest rated movie is: " + getActors(movieList));
         System.out.println("Least number of actors in movie: " + getLeastActors(movieList));
         System.out.println("Number of actors in more than 1 movie: " + actorsInMovies(movieList));
         System.out.println("Pop actor: " + getMostPopularActor(movieList));
+        System.out.println("Number of unique languages: " + getUniquelanguage(movieList));
     }
 
     // Hur många filmer gjordes 1975 (enligt vårt data). Returnera ett tal
@@ -101,6 +102,10 @@ public class MongoDBAtlasDownload {
     public String getMostPopularActor(List<Movie> movieList) {
         Map<String, Long> pop = movieList.stream().flatMap(m -> m.getCast().stream()).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
         return pop.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
+    }
+
+    public long getUniquelanguage(List<Movie> movieList) {
+        return movieList.stream().flatMap(x -> x.getLanguages().stream()).distinct().count();
     }
 
 
