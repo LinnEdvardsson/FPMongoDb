@@ -52,6 +52,7 @@ public class MongoDBAtlasDownload {
         System.out.println("Longest movie was: " + getLongestMovie(movieList));
         System.out.println("Unique genres: " + getUniqueGenres(movieList));
         System.out.println("Actors in highest rated movie is: " + getActors(movieList));
+        System.out.println("Least number of actors in movie: " + getLeastActors(movieList));
     }
 
     // Hur många filmer gjordes 1975 (enligt vårt data). Returnera ett tal
@@ -77,6 +78,12 @@ public class MongoDBAtlasDownload {
         Comparator<Movie> movieComparator = Comparator.comparing(Movie::getImdbRating);
         return movieList.stream().max(movieComparator).map(Movie::getCast).orElse(Collections.emptyList());
 
+    }
+
+    //Vad är titeln på den film som hade minst antal skådisar listade? Returnera en String
+    public String getLeastActors(List<Movie> movieList) {
+        Comparator<Movie> compActor = Comparator.comparing(x -> x.getCast().size());
+        return String.valueOf(movieList.stream().min(compActor).map(Movie::getTitle).orElse(null));
     }
 
 
