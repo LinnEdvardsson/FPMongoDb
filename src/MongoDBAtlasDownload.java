@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import static java.util.Locale.filter;
 import static java.util.Locale.forLanguageTag;
 
-//"mongodb+srv://linnedvardsson:bulle123@cluster0.kh0oq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 public class MongoDBAtlasDownload {
     private String uri = "mongodb+srv://linnedvardsson:bulle123@cluster0.kh0oq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
     List<Movie> movieList;

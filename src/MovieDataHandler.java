@@ -38,15 +38,15 @@ public class MovieDataHandler {
 
     /// lägger resultat i hashmap för att ge nyckel (actor) och värde (förekommer antal ggr). Går igenom listan och filtrerar på värden och summerar hur många gånger man förekommer.
     public int actorsInMovies(List<Movie> movieList) {
-        Map<String, Long> acc = movieList.stream().flatMap(m -> m.getCast().stream()).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
-        return acc.entrySet().stream().filter(e -> e.getValue() > 1).mapToInt(e -> 1).sum();
+        Map<String, Long> actorsInMovies = movieList.stream().flatMap(m -> m.getCast().stream()).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
+        return actorsInMovies.entrySet().stream().filter(e -> e.getValue() > 1).mapToInt(e -> 1).sum();
     }
 
 
     /// samma comparing som ovan, men i return nu jämför values i mappen, och det högsta values hämtas nyckeln för.
     public String getMostPopularActor(List<Movie> movieList) {
-        Map<String, Long> pop = movieList.stream().flatMap(m -> m.getCast().stream()).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
-        return pop.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
+        Map<String, Long> popularActor = movieList.stream().flatMap(m -> m.getCast().stream()).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
+        return popularActor.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
     }
 
     public long getUniquelanguage(List<Movie> movieList) {
