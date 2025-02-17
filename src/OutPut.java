@@ -11,7 +11,7 @@ public class OutPut {
     }
 
     public void NumbOfMovies() {
-        System.out.println("Number of movies from 1975: " + handler.getNumbOfMovies(movieList));
+        System.out.println("Number of movies from 1975: " + handler.getNumbOfMovies(movieList, 1975));
     }
 
     public void LongestMovie() {

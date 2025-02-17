@@ -6,8 +6,8 @@ public class MovieDataHandler {
 
 
     /// Filtrerar filmer i listan på filmer från 1975, omvandlar varje match till 1 för att summera alla.
-    public long getNumbOfMovies(List<Movie> movieList) {
-        return movieList.stream().filter(movie -> movie.getYear() == 1975).count();
+    public long getNumbOfMovies(List<Movie> movieList, long year) {
+        return movieList.stream().filter(movie -> movie.getYear() == year).count();
     }
 
 

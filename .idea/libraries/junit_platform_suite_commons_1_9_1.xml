@@ -1,0 +1,23 @@
+<component name="libraryTable">
+  <library name="junit-platform-suite-commons-1.9.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/junit/junit-platform-suite-commons-1.9.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/junit/junit-jupiter-migrationsupport-5.10.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/junit/junit-platform-runner-1.9.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/junit/junit-platform-engine-1.9.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/junit/junit-jupiter-api-5.10.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/junit/junit-jupiter-engine-5.10.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/junit/junit-platform-launcher-1.9.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/junit/junit-platform-suite-engine-1.9.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/junit/junit-platform-console-1.9.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/junit/junit-platform-commons-1.9.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/junit/junit-platform-suite-api-1.9.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/junit/junit-vintage-engine-5.10.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/junit/junit-platform-reporting-1.9.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/junit/junit-platform-console-standalone-1.9.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/junit/junit-jupiter-params-5.10.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
