@@ -52,7 +52,7 @@ public class MongoDBAtlasDownload {
         oPd.MovieWithLeastActors();
         oPd.ActorsInMultipleMovies();
         oPd.PopularActors();
-        oPd.Uniquelanguage();
+        oPd.UniqueLanguage();
         oPd.MultiMovieTitle();
     }
 

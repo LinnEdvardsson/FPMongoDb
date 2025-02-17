@@ -19,7 +19,7 @@ public class OutPut {
     }
 
     public void UniqueGenres() {
-        System.out.println("Unique genres: " + handler.getUniqueGenres(movieList));
+        System.out.println("Unique genres: " + handler.searchForValues(movieList, Movie::getGenres));
     }
 
     public void HighestRatedMovieActors() {
@@ -38,13 +38,11 @@ public class OutPut {
         System.out.println("Pop actor: " + handler.getMostPopularActor(movieList));
     }
 
-    public void Uniquelanguage() {
-        System.out.println("Number of unique languages: " + handler.getUniquelanguage(movieList));
+    public void UniqueLanguage() {
+        System.out.println("Number of unique languages: " + handler.searchForValues(movieList, Movie::getLanguages));
     }
 
     public void MultiMovieTitle() {
         System.out.println("Movie title belongs to several movies: " + handler.getMulitMovieTitle(movieList));
     }
-
-
 }

@@ -16,10 +16,10 @@ public class MovieDataHandler {
         return movieList.stream().mapToInt(Movie::getRuntime).max().orElse(0);
     }
 
-    // Hur många UNIKA genrer hade filmerna från 1975. Returnera ett tal. FEL????
-    public long getUniqueGenres(List<Movie> movieList) {
-        return movieList.stream().flatMap(x -> x.getGenres().stream()).distinct().count();
-    }
+    // Hur många UNIKA genrer hade filmerna från 1975. Returnera ett tal. FEL????. + LÄGG TILL FILTER PÅ ÅRTAL.
+//    public long getUniqueGenres(List<Movie> movieList) {
+//        return movieList.stream().flatMap(x -> x.getGenres().stream()).distinct().count();
+//    }
 
 
     /// Lägger in rating i en comparing som jämför objekten Movie baserat på rating. Sätter den i max för att returnera högsta värdet med skådespelare.
@@ -49,13 +49,17 @@ public class MovieDataHandler {
         return popularActor.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
     }
 
-    public long getUniquelanguage(List<Movie> movieList) {
-        return movieList.stream().flatMap(x -> x.getLanguages().stream()).distinct().count();
-    }
+//    public long getUniquelanguage(List<Movie> movieList) {
+//        return movieList.stream().flatMap(x -> x.getLanguages().stream()).distinct().count();
+//    }
 
     public boolean getMulitMovieTitle(List<Movie> movieList) {
         Map<String, Long> movieTitles = movieList.stream().map(Movie::getTitle).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
         return movieTitles.entrySet().stream().anyMatch(e -> e.getValue() > 1);
+    }
+
+    public long searchForValues(List<Movie> movieList, MovieValueSearch movieValueSearch) {
+        return movieList.stream().map(movieValueSearch::getValues).flatMap(List::stream).distinct().count();
     }
 }
 
