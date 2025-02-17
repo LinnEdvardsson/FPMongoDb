@@ -26,33 +26,38 @@ class MovieDataHandlerTest {
     void getNumbOfMovies() {
         long count = handler.getNumbOfMovies(testList, 1994);
         assertEquals(2, count);
+        assertNotEquals(3, handler.getNumbOfMovies(testList, 1994));
     }
+
 
     @Test
     void getLongestMovie() {
+        assertTrue(testList.get(4).getRuntime() > testList.get(3).getRuntime());
+        assertNotEquals(testList.get(2).getRuntime(), testList.get(3).getRuntime());
+        System.out.println("Longest movie: " + testList.get(4).getRuntime());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getActors() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getLeastActors() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void actorsInMovies() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getMostPopularActor() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getMulitMovieTitle() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void searchForValues() {
     }
 }
