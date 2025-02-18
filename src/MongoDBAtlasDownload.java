@@ -28,8 +28,6 @@ public class MongoDBAtlasDownload {
             MongoDatabase database = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> moviesCollection = database.getCollection("movies");
 
-            //Get all movies from 1975
-//            List<Movie> movieList = new ArrayList<>();
             for (Document doc : moviesCollection.find(new Document("year", 1975))) {
                 {
                     movieList.add(Movie.fromDocument(doc));

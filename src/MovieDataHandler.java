@@ -23,8 +23,6 @@ public class MovieDataHandler {
 
     }
 
-
-    /// ny variant, otestad i main.
     public List <String> getLeastActorsInMovie(List<Movie> movieList) {
         Comparator <Movie> comparator = Comparator.comparing(x-> x.getCast().size());
         return movieList.stream().min(comparator).map(Movie::getTitle).stream().toList();
