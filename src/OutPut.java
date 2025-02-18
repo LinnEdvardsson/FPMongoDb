@@ -23,15 +23,15 @@ public class OutPut {
     }
 
     public void HighestRatedMovieActors() {
-        System.out.println("Actors in highest rated movie is: " + handler.getActors(movieList));
+        System.out.println("Actors in highest rated movie is: " + handler.getActorsInHighestRatedMovie(movieList));
     }
 
     public void MovieWithLeastActors() {
-        System.out.println("Least number of actors in movie: " + handler.getLeastActors(movieList));
+        System.out.println("Least number of actors in movie: " + handler.getLeastActorsInMovie(movieList));
     }
 
     public void ActorsInMultipleMovies() {
-        System.out.println("Number of actors in more than 1 movie: " + handler.actorsInMovies(movieList));
+        System.out.println("Number of actors in more than 1 movie: " + handler.actorsInMultipleMovies(movieList));
     }
 
     public void PopularActors() {

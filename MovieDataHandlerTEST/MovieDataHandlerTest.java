@@ -39,7 +39,7 @@ class MovieDataHandlerTest {
     /// Testar metod med en ny lista med highestRatedCast, ser om testList har 2 skådespelare i högst rankad film.
     @Test
     void getActors() {
-        List<String> highestRatedCast = handler.getActors(testList);
+        List<String> highestRatedCast = handler.getActorsInHighestRatedMovie(testList);
         List<String> expected = Arrays.asList("Tim Robbins", "Morgan Freeman");
         assertEquals(2, highestRatedCast.size());
         assertNotEquals(3, highestRatedCast.size());
@@ -54,7 +54,7 @@ class MovieDataHandlerTest {
     /// Ytterligare test för ovan metod ifall listan med filmer är tom och då retunerar en tom lista.
     @Test
     void getActorsEmptyList() {
-        List<String> result = handler.getActors(Collections.emptyList());
+        List<String> result = handler.getActorsInHighestRatedMovie(Collections.emptyList());
         assertEquals(Collections.emptyList(), result);
         System.out.println("List: " + result);
     }
@@ -62,7 +62,7 @@ class MovieDataHandlerTest {
 
     @Test /// --> Skriva om dessa metoder i MovieDataHandler så dom retunerar listor denna funkar.
     void getLeastActors() {
-        List <String> leastActors = handler.getLeastActors(testList);
+        List <String> leastActors = handler.getLeastActorsInMovie(testList);
         List<String> expected = Arrays.asList("Psyco");
         assertEquals(leastActors, expected);
         assertTrue(leastActors.contains("Psyco"));
@@ -73,14 +73,14 @@ class MovieDataHandlerTest {
 
     @Test
     void getLeastActorsEmptyList() {
-        List<String> result = handler.getLeastActors(Collections.emptyList());
+        List<String> result = handler.getLeastActorsInMovie(Collections.emptyList());
         assertEquals(Collections.emptyList(), result);
         System.out.println("List: " + result);
     }
 
     @Test
     void actorsInMovies() {
-        int actorsInMultipleMovies = handler.actorsInMovies(testList);
+        int actorsInMultipleMovies = handler.actorsInMultipleMovies(testList);
         assertEquals(1, actorsInMultipleMovies);
         assertNotEquals(3, actorsInMultipleMovies);
         System.out.println("Actors in more than one movie: " + actorsInMultipleMovies);
@@ -88,7 +88,7 @@ class MovieDataHandlerTest {
 
     @Test
     void actorsInMovieEmptyList() {
-        int actorsInMultipleMoviesEmpty = handler.actorsInMovies(Collections.emptyList());
+        int actorsInMultipleMoviesEmpty = handler.actorsInMultipleMovies(Collections.emptyList());
         assertEquals(0, actorsInMultipleMoviesEmpty);
         System.out.println("Empty list: " + actorsInMultipleMoviesEmpty);
     }
@@ -98,7 +98,6 @@ class MovieDataHandlerTest {
         String result = handler.getMostPopularActor(testList);
         assertEquals("Christian Bale", result);
         System.out.println("Most popular actor: " + result);
-
     }
 
     @Test
