@@ -30,11 +30,17 @@ public class MovieDataHandler {
     }
 
 
-    public String getLeastActors(List<Movie> movieList) {
-        Comparator<Movie> compActor = Comparator.comparing(x -> x.getCast().size());
-        return movieList.stream().min(compActor).map(Movie::getTitle).orElse(null);
-    }
+    /// Skriva om så den hålller en lista
+//    public String getLeastActor1(List<Movie> movieList) {
+//        Comparator<Movie> compActor = Comparator.comparing(x -> x.getCast().size());
+//        return movieList.stream().min(compActor).map(Movie::getTitle).orElse(null);
+//    }
 
+    /// ny variant, otestad i main.
+    public List <String> getLeastActors(List<Movie> movieList) {
+        Comparator <Movie> comparator = Comparator.comparing(x-> x.getCast().size());
+        return movieList.stream().min(comparator).map(Movie::getTitle).stream().toList();
+    }
 
     /// lägger resultat i hashmap för att ge nyckel (actor) och värde (förekommer antal ggr). Går igenom listan och filtrerar på värden och summerar hur många gånger man förekommer.
     public int actorsInMovies(List<Movie> movieList) {
@@ -48,10 +54,6 @@ public class MovieDataHandler {
         Map<String, Long> popularActor = movieList.stream().flatMap(m -> m.getCast().stream()).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
         return popularActor.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
     }
-
-//    public long getUniquelanguage(List<Movie> movieList) {
-//        return movieList.stream().flatMap(x -> x.getLanguages().stream()).distinct().count();
-//    }
 
     public boolean getMulitMovieTitle(List<Movie> movieList) {
         Map<String, Long> movieTitles = movieList.stream().map(Movie::getTitle).collect(Collectors.groupingBy(x -> x, Collectors.counting()));

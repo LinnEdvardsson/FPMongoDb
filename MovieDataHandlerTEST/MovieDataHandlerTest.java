@@ -17,8 +17,6 @@ class MovieDataHandlerTest {
     );
 
     MovieDataHandler handler = new MovieDataHandler();
-    int actorsInMultipleMovies = handler.actorsInMovies(testList);
-    String result;
 
 
     @Test
@@ -31,9 +29,10 @@ class MovieDataHandlerTest {
 
     @Test
     void getLongestMovie() {
-        assertTrue(testList.get(4).getRuntime() > testList.get(3).getRuntime());
-        assertNotEquals(testList.get(2).getRuntime(), testList.get(3).getRuntime());
-        System.out.println("Longest movie: " + testList.get(4).getRuntime());
+        int longestMovie = handler.getLongestMovie(testList);
+        assertEquals(200, longestMovie);
+        assertNotEquals(142, longestMovie);
+        System.out.println("Longest movie: " + longestMovie + " min");
     }
 
 
@@ -41,8 +40,14 @@ class MovieDataHandlerTest {
     @Test
     void getActors() {
         List<String> highestRatedCast = handler.getActors(testList);
+        List<String> expected = Arrays.asList("Tim Robbins", "Morgan Freeman");
         assertEquals(2, highestRatedCast.size());
         assertNotEquals(3, highestRatedCast.size());
+
+        assertEquals(expected, highestRatedCast);
+
+        assertTrue(highestRatedCast.contains("Tim Robbins"));
+        assertTrue(highestRatedCast.contains("Morgan Freeman"));
         System.out.println("Highest Rated Cast: " + highestRatedCast);
     }
 
@@ -55,24 +60,29 @@ class MovieDataHandlerTest {
     }
 
 
-//    @Test
-//    void getLeastActors() {
-//        String leastActors = handler.getLeastActors(testList);
-//        assertEquals(leastActors, testList.get(0).getTitle());
-//        System.out.println("Least Actors in: " + leastActors);
-//    }
-//    @Test
-//    void getLeastActorsEmptyList() {
-//        List<String> result = handler.getLeastActors(Collections.emptyList());
-//        assertEquals(Collections.emptyList(), result);
-//        System.out.println("List: " + result);
-//    }
+    @Test /// --> Skriva om dessa metoder i MovieDataHandler så dom retunerar listor denna funkar.
+    void getLeastActors() {
+        List <String> leastActors = handler.getLeastActors(testList);
+        List<String> expected = Arrays.asList("Psyco");
+        assertEquals(leastActors, expected);
+        assertTrue(leastActors.contains("Psyco"));
+        assertEquals(1, leastActors.size());
+        assertNotEquals("Inception", expected);
+        System.out.println("Least Actors in: " + leastActors);
+    }
 
-    //     Map<String, Long> actorsInMovies = movieList.stream().flatMap(m -> m.getCast().stream()).collect(Collectors.groupingBy(x -> x, Collectors.counting()));
-    //        return actorsInMovies.entrySet().stream().filter(e -> e.getValue() > 1).mapToInt(e -> 1).sum();
+    @Test
+    void getLeastActorsEmptyList() {
+        List<String> result = handler.getLeastActors(Collections.emptyList());
+        assertEquals(Collections.emptyList(), result);
+        System.out.println("List: " + result);
+    }
+
     @Test
     void actorsInMovies() {
-        assertEquals(0, actorsInMultipleMovies);
+        int actorsInMultipleMovies = handler.actorsInMovies(testList);
+        assertEquals(1, actorsInMultipleMovies);
+        assertNotEquals(3, actorsInMultipleMovies);
         System.out.println("Actors in more than one movie: " + actorsInMultipleMovies);
     }
 
@@ -84,20 +94,16 @@ class MovieDataHandlerTest {
     }
 
     @Test
-    void actorsMultipleMovies() {
-        assertNotEquals(3, actorsInMultipleMovies);
-    }
-
-    @Test
     void getMostPopularActor() {
-        result = handler.getMostPopularActor(testList);
+        String result = handler.getMostPopularActor(testList);
         assertEquals("Christian Bale", result);
         System.out.println("Most popular actor: " + result);
+
     }
 
     @Test
     void getMostPopularActorEmptyList() {
-        result = handler.getMostPopularActor(Collections.emptyList());
+        String result = handler.getMostPopularActor(Collections.emptyList());
         assertEquals(null, result);
     }
 
@@ -109,9 +115,23 @@ class MovieDataHandlerTest {
         System.out.println("MulitMovieTitle: " + result);
     }
 
-    // return movieList.stream().map(movieValueSearch::getValues).flatMap(List::stream).distinct().count();
     @Test
-    void searchForValues() {
+    void searchForValuesLanguages() {
+        long result = handler.searchForValues(testList, Movie::getLanguages);
+        long expected = 7;
+        assertEquals(expected, result);
+        assertNotEquals(1, result);
+        assertFalse(result < expected);
+        System.out.println("SearchForValues " + result + " languages");
+    }
+
+    @Test
+    void searchForValuesGenres() {
+        long result = handler.searchForValues(testList, Movie::getGenres);
+        long expected = 8;
+        assertEquals(expected, result);
+        assertFalse(expected < result);
+        System.out.println("SearchForValues " + result + " genres");
 
     }
 }
