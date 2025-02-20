@@ -11,7 +11,7 @@ public class Functions {
             flatMap(List::stream)
             .collect(Collectors.groupingBy(x -> x, Collectors.counting()));
 
-    Function<List<Movie>, Stream<String>> countAttributeFunc = movieList -> movieList.stream().map(Movie::getLanguages).flatMap(List::stream);
+    Function<List<Movie>, Stream<String>> uniqueLanguages= movieList -> movieList.stream().map(Movie::getLanguages).flatMap(List::stream);
 
     Function<List<Movie>, Map<String, Long>> moviesWithDuplicateTitles = movieList -> movieList.stream().map(Movie::getTitle)
             .collect(Collectors.groupingBy(x -> x, Collectors.counting()));

@@ -45,7 +45,7 @@ public class OutPut {
     }
 
     public void UniqueLanguage() {
-        System.out.println("Number of unique languages: " + handler.searchForValues(movieList, func.countAttributeFunc));
+        System.out.println("Number of unique languages: " + handler.searchForValues(movieList, func.uniqueLanguages));
     }
 
     public void MultiMovieTitle() {
