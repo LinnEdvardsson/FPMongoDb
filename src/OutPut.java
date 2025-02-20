@@ -22,6 +22,7 @@ public class OutPut {
         System.out.println("Unique genres: " + handler.searchForValues(movieList, Movie::getGenres));
     }
 
+
     public void HighestRatedMovieActors() {
         System.out.println("Actors in highest rated movie is: " + handler.getActorsInHighestRatedMovie(movieList));
     }

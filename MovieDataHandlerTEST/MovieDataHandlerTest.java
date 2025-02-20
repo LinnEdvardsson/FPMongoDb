@@ -2,6 +2,7 @@ import com.mongodb.client.model.geojson.LineString;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -133,4 +134,21 @@ class MovieDataHandlerTest {
         System.out.println("SearchForValues " + result + " genres");
 
     }
+    //  public <T> Map<T, Long> countValues(List<Movie> movieList, Count<T>count) {
+    //        return movieList.stream().flatMap(count::getCount).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+    //      Map <String, Long> popularActor = countValues(movieList, movie -> movie.getCast().stream());
+    //        return popularActor.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
+    //    }
+    @Test
+    void count() {
+        Count <String> counting = m -> m.getCast().stream();
+        Map<String, Long> result = handler.countValues(testList, counting);
+        assertTrue(result.containsKey("Christian Bale"));
+        assertEquals(false, result.containsKey("Tim Robbins = 3"));
+        assertNotEquals("Babybossen", false);
+        System.out.println("Map: " + result);
+    }
+
+
 }
