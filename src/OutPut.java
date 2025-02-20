@@ -1,13 +1,19 @@
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class OutPut {
 
     List<Movie> movieList;
     MovieDataHandler handler;
+    Functions func;
 
     public OutPut(List<Movie> movieList) {
         this.movieList = movieList;
         handler = new MovieDataHandler();
+        func = new Functions();
     }
 
     public void NumbOfMovies() {
@@ -19,9 +25,8 @@ public class OutPut {
     }
 
     public void UniqueGenres() {
-        System.out.println("Unique genres: " + handler.searchForValues(movieList, Movie::getGenres));
+        System.out.println("Unique genres: " + handler.searchForValues(movieList, func.uniqueGenres));
     }
-
 
     public void HighestRatedMovieActors() {
         System.out.println("Actors in highest rated movie is: " + handler.getActorsInHighestRatedMovie(movieList));
@@ -32,18 +37,18 @@ public class OutPut {
     }
 
     public void ActorsInMultipleMovies() {
-        System.out.println("Number of actors in more than 1 movie: " + handler.actorsInMultipleMovies(movieList));
+        System.out.println("Number of actors in more than 1 movie: " + handler.actorsInMultipleMovies(movieList, func.actorsInMultipleMovies));
     }
 
     public void PopularActors() {
-        System.out.println("Pop actor: " + handler.getMostPopularActor(movieList));
+        System.out.println("Pop actor: " + handler.getMostPopularActor(movieList, func.mostPopularActor));
     }
 
     public void UniqueLanguage() {
-        System.out.println("Number of unique languages: " + handler.searchForValues(movieList, Movie::getLanguages));
+        System.out.println("Number of unique languages: " + handler.searchForValues(movieList, func.countAttributeFunc));
     }
 
     public void MultiMovieTitle() {
-        System.out.println("Movie title belongs to several movies: " + handler.getMulitMovieTitle(movieList));
+        System.out.println("Movie title belongs to several movies: " + handler.getMulitMovieTitle(movieList, func.moviesWithDuplicateTitles));
     }
 }
