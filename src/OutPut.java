@@ -8,12 +8,10 @@ public class OutPut {
 
     List<Movie> movieList;
     MovieDataHandler handler;
-    Functions func;
 
     public OutPut(List<Movie> movieList) {
         this.movieList = movieList;
         handler = new MovieDataHandler();
-        func = new Functions();
     }
 
     public void NumbOfMovies() {
@@ -25,7 +23,7 @@ public class OutPut {
     }
 
     public void UniqueGenres() {
-        System.out.println("Unique genres: " + handler.searchForValues(movieList, func.uniqueGenres));
+        System.out.println("Unique genres: " + handler.searchForValues(movieList, Functions.uniqueGenres));
     }
 
     public void HighestRatedMovieActors() {
@@ -37,18 +35,18 @@ public class OutPut {
     }
 
     public void ActorsInMultipleMovies() {
-        System.out.println("Number of actors in more than 1 movie: " + handler.actorsInMultipleMovies(movieList, func.actorsInMultipleMovies));
+        System.out.println("Number of actors in more than 1 movie: " + handler.actorsInMultipleMovies(movieList, Functions.actorCounter));
     }
 
     public void PopularActors() {
-        System.out.println("Pop actor: " + handler.getMostPopularActor(movieList, func.mostPopularActor));
+        System.out.println("Pop actor: TEST " + handler.getMostPopularActor(movieList, Functions.actorCounter));
     }
 
     public void UniqueLanguage() {
-        System.out.println("Number of unique languages: " + handler.searchForValues(movieList, func.uniqueLanguages));
+        System.out.println("Number of unique languages: " + handler.searchForValues(movieList, Functions.uniqueLanguages));
     }
 
     public void MultiMovieTitle() {
-        System.out.println("Movie title belongs to several movies: " + handler.getMulitMovieTitle(movieList, func.moviesWithDuplicateTitles));
+        System.out.println("Movie title belongs to several movies: " + handler.getMulitMovieTitle(movieList, Functions.moviesWithDuplicateTitles));
     }
 }

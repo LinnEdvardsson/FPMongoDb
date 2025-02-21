@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 public class MovieDataHandler {
 
+
     /// Filtrerar filmer i listan på filmer från 1975, omvandlar varje match till 1 för att summera alla.
     public long getNumbOfMovies(List<Movie> movieList, long year) {
         return movieList.stream().filter(movie -> movie.getYear() == year).count();
@@ -24,8 +25,8 @@ public class MovieDataHandler {
 
     }
 
-    public List <String> getLeastActorsInMovie(List<Movie> movieList) {
-        Comparator <Movie> comparator = Comparator.comparing(x-> x.getCast().size());
+    public List<String> getLeastActorsInMovie(List<Movie> movieList) {
+        Comparator<Movie> comparator = Comparator.comparing(x -> x.getCast().size());
         return movieList.stream().min(comparator).map(Movie::getTitle).stream().toList();
     }
 
@@ -38,7 +39,7 @@ public class MovieDataHandler {
 
     /// samma comparing som ovan, men i return nu jämför values i mappen, och det högsta values hämtas nyckeln för.
     public String getMostPopularActor(List<Movie> movieList, Function<List<Movie>, Map<String, Long>> mapper) {
-        Map <String, Long> popularActor = mapper.apply(movieList);
+        Map<String, Long> popularActor = mapper.apply(movieList);
         return popularActor.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
     }
 
@@ -47,7 +48,8 @@ public class MovieDataHandler {
         return movieTitles.entrySet().stream().anyMatch(e -> e.getValue() > 1);
     }
 
-        ///  Högre funktion
+    ///  Högre funktion. Tar Movielist och funktion som inparameter. Använder apply för att metoden ska "veta" att den kommer hantera en movielist.
+    /// Hämtar metoden i output då med movielist och akutell funktion som inparameter. (Genre, Languages)
     public long searchForValues(List<Movie> movieList, Function<List<Movie>, Stream<String>> func) {
         return func.apply(movieList).distinct().count();
     }

@@ -17,7 +17,6 @@ class MovieDataHandlerTest {
     );
 
     MovieDataHandler handler = new MovieDataHandler();
-    Functions func = new Functions();
     List<Movie> emptyList = Collections.emptyList();
 
 
@@ -61,8 +60,8 @@ class MovieDataHandlerTest {
         System.out.println("List: " + result);
     }
 
-
-    @Test /// --> Skriva om dessa metoder i MovieDataHandler så dom retunerar listor denna funkar.
+    ///
+    @Test
     void getLeastActors() {
         List <String> leastActors = handler.getLeastActorsInMovie(testList);
         List<String> expected = Arrays.asList("Psyco");
@@ -76,49 +75,54 @@ class MovieDataHandlerTest {
     @Test
     void getLeastActorsEmptyList() {
         List<String> result = handler.getLeastActorsInMovie(Collections.emptyList());
-        assertEquals(Collections.emptyList(), result);
+        assertEquals(List.of(), result);
+        assertNotEquals(List.of(), handler.getLeastActorsInMovie(testList));
         System.out.println("EmptyList: " + result);
     }
 
     @Test
     void actorsInMultipleMovies() {
-        int actorsInMultipleMovies = handler.actorsInMultipleMovies(testList, func.actorsInMultipleMovies);
+        int actorsInMultipleMovies = handler.actorsInMultipleMovies(testList, Functions.actorCounter);
         assertEquals(1, actorsInMultipleMovies);
-        assertNotEquals(3, actorsInMultipleMovies);
+        assertFalse(actorsInMultipleMovies == 3);
         System.out.println("Actors in more than one movie: " + actorsInMultipleMovies);
     }
 
     @Test
     void actorsInMovieEmptyList() {
-        int actorsInMultipleMoviesEmpty = handler.actorsInMultipleMovies(emptyList, func.actorsInMultipleMovies);
+        int actorsInMultipleMoviesEmpty = handler.actorsInMultipleMovies(Collections.emptyList(), Functions.actorCounter);
         assertEquals(0, actorsInMultipleMoviesEmpty);
+        assertFalse(actorsInMultipleMoviesEmpty == testList.size());
         System.out.println("EmptyList: " + actorsInMultipleMoviesEmpty);
     }
 
     @Test
     void getMostPopularActor() {
-        String result = handler.getMostPopularActor(testList, func.mostPopularActor);
+        String result = handler.getMostPopularActor(testList, Functions.actorCounter);
         assertEquals("Christian Bale", result);
+        assertFalse(testList.get(5).equals("Christian"));
         System.out.println("Most popular actor: " + result);
     }
 
     @Test
     void getMostPopularActorWithEmptyList() {
-        String result = handler.getMostPopularActor(emptyList, func.mostPopularActor);
+        String result = handler.getMostPopularActor(emptyList, Functions.actorCounter);
         assertNull(result);
-        System.out.println("Result " + result);
+        assertTrue(emptyList.isEmpty());
+        System.out.println("EmptyList: " + result);
     }
 
 
     @Test
     void getMulitMovieTitle() {
-        boolean result = handler.getMulitMovieTitle(testList, func.moviesWithDuplicateTitles);
+        boolean result = handler.getMulitMovieTitle(testList, Functions.moviesWithDuplicateTitles);
+        assertFalse(result);
         System.out.println("MulitMovieTitle: " + result);
     }
 
     @Test
     void searchForValuesLanguages() {
-        long result = handler.searchForValues(testList, func.uniqueLanguages);
+        long result = handler.searchForValues(testList, Functions.uniqueLanguages);
         long expected = 7;
         assertEquals(expected, result);
         assertNotEquals(1, result);
@@ -128,7 +132,7 @@ class MovieDataHandlerTest {
 
     @Test
     void searchForValuesGenres() {
-        long result = handler.searchForValues(testList, func.uniqueGenres);
+        long result = handler.searchForValues(testList, Functions.uniqueGenres);
         long expected = 8;
         assertEquals(expected, result);
         assertFalse(expected < result);
